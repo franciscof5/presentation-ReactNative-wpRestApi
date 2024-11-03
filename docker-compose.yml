@@ -21,11 +21,11 @@ services:
       #LETSENCRYPT_EMAIL: 
       #JWT_AUTH_SECRET_KEY: laksjdlkajsdklajsdklajsd
       #JWT_AUTH_CORS_ENABLE: "true"
+    volumes:
+      - wp_data:/var/www/html
+      - wp_data:/usr/src/wordpress/wp-content
     #networks:
     #  - network_l1
-    #volumes:
-    #  - /local/folder/wp-content:/var/www/wp-content
-    #  - /local/folder/wp-content:/usr/src/wordpress/wp-content
     #deploy:
     #  resources:
     #    limits:
@@ -51,7 +51,7 @@ services:
       - wp_data:/var/www/html
     depends_on:
       - wordpress_lavaggioapp
-    entrypoint: ["sh", "-c", "sleep 30; wp core install --url='http://localhost' --title='Demo Site' --admin_user='admin' --admin_password='password' --admin_email='admin@example.com'; wp plugin install wordpress-importer --activate; wp import /var/www/html/demo-data.xml --authors=create"]
+    entrypoint: ["sh", "-c", "sleep 30; wp core install --url='http://localhost' --title='Demo Site' --admin_user='admin' --admin_password='password' --admin_email='admin@example.com'; wp plugin install wordpress-importer --activate; wp import demo-data.xml --authors=create"]
 
 volumes:
   wp_db_data:
