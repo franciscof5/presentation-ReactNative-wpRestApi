@@ -5,11 +5,9 @@ This repository contains the materials and examples presented in the talk about 
 
 ## Sponsored by
 
-```
-F5 Sites (www.f5sites.com) (www.f5sites.it) (www.f5sites.com.br)
-Lavaggio App (www.lavaggioapp.it)
-Francisco Matelli (www.franciscomatelli.com.br)
-```
+ * F5 Sites (www.f5sites.com) (www.f5sites.it) (www.f5sites.com.br)
+ * Lavaggio App (www.lavaggioapp.it)
+ * Francisco Matelli (www.franciscomatelli.com.br)
 
 ## What you will find here:
 
