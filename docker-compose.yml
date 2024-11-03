@@ -51,7 +51,8 @@ services:
       - wp_data:/var/www/html
     depends_on:
       - wordpress_lavaggioapp
-    entrypoint: ["sh", "-c", "sleep 30; wp core install --url='http://localhost' --title='Demo Site' --admin_user='admin' --admin_password='password' --admin_email='admin@example.com'; wp plugin install wordpress-importer --activate; wp import demo-data.xml --authors=create"]
+    #entrypoint: ["sh", "-c", "sleep 30; wp core install --url='http://localhost' --title='Demo Site' --admin_user='admin' --admin_password='password' --admin_email='admin@example.com'; wp plugin install wordpress-importer --activate; wp import demo-data.xml --authors=create"]
+    entrypoint: ["sh", "-c", "sleep 60; until wp core is-installed; do sleep 5; done; wp core install --url='http://localhost' --title='Demo Site' --admin_user='admin' --admin_password='password' --admin_email='admin@example.com'; wp plugin install wordpress-importer --activate; wp import demo-data.xml --authors=create"]
 
 volumes:
   wp_db_data:
