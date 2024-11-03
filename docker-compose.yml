@@ -1,0 +1,62 @@
+version: '3.5'
+
+services:
+  wordpress_lavaggioapp:
+    image: trafex/wordpress
+    restart: always
+    environment:
+      DB_CHARSET: utf8
+      DB_HOST: wp_mysql
+      DB_PASSWORD: AOSIDUKLJADJLASJDLASDJLKDAJS
+      DB_NAME: wordpress
+      DB_USER: root
+      FS_METHOD: direct
+      TABLE_PREFIX: wp_
+      # For debugging only:
+      #WP_DEBUG: "true"
+      #WP_DEBUG_DISPLAY: "true"
+      #UPLOADS: wp-content/uploads
+      #VIRTUAL_HOST: www.lavaggioapp.it, lavaggioapp.it
+      #LETSENCRYPT_HOST: www.lavaggioapp.it, lavaggioapp.it
+      #LETSENCRYPT_EMAIL: 
+      #JWT_AUTH_SECRET_KEY: laksjdlkajsdklajsdklajsd
+      #JWT_AUTH_CORS_ENABLE: "true"
+    #networks:
+    #  - network_l1
+    #volumes:
+    #  - /local/folder/wp-content:/var/www/wp-content
+    #  - /local/folder/wp-content:/usr/src/wordpress/wp-content
+    #deploy:
+    #  resources:
+    #    limits:
+    #      cpus: '0.15'
+    #      memory: 150M
+    depends_on:
+      - wp_mysql
+
+  wp_mysql:
+    image: yobasystems/alpine-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: AOSIDUKLJADJLASJDLASDJLKDAJS
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: root
+      MYSQL_PASSWORD: AOSIDUKLJADJLASJDLASDJLKDAJS
+    volumes:
+      - wp_db_data:/var/lib/mysql
+
+  wp_cli:
+    image: wordpress:cli
+    volumes:
+      - wp_data:/var/www/html
+    depends_on:
+      - wordpress_lavaggioapp
+    entrypoint: ["sh", "-c", "sleep 30; wp core install --url='http://localhost' --title='Demo Site' --admin_user='admin' --admin_password='password' --admin_email='admin@example.com'; wp plugin install wordpress-importer --activate; wp import /var/www/html/demo-data.xml --authors=create"]
+
+volumes:
+  wp_db_data:
+  wp_data:
+
+#networks:
+#  network_l1:
+#    external: true
